@@ -1,6 +1,6 @@
-set(CPACK_PACKAGE_VENDOR "Ultimaker")
+set(CPACK_PACKAGE_VENDOR "Alephobjects")
 set(CPACK_PACKAGE_CONTACT "Arjen Hiemstra <a.hiemstra@ultimaker.com>")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "libArcus Communication library")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Contains binary data for Cura releases, like compiled translations and firmware.")
 if(NOT DEFINED CPACK_PACKAGE_VERSION)
   set(CPACK_PACKAGE_VERSION "1.0.0")
 endif()
