@@ -6,17 +6,20 @@ include(GNUInstallDirs)
 
 option(BUILD_MARLIN_FIRMWARES "Build Marlin Firmware" ON)
 
+set(MARLIN_BIN_OUT_DIR "${CMAKE_SOURCE_DIR}/build-marlin/out")
+set(CURA_FIRMWARES_DIR "${CMAKE_INSTALL_DATADIR}/cura/resources/firmware")
+
 if(BUILD_MARLIN_FIRMWARES)
 	add_custom_target(BuildMarlin ALL
-	DEPENDS ${CMAKE_SOURCE_DIR}/build-marlin-hex)
+	DEPENDS ${MARLIN_BIN_OUT_DIR})
 
 	add_custom_command(	PRE_BUILD
-											COMMAND /bin/bash ${CMAKE_SOURCE_DIR}/build-marlin-firmwares.sh && mkdir ${CMAKE_SOURCE_DIR}/build-marlin-hex && mv ${CMAKE_SOURCE_DIR}/build-marlin/*.hex ${CMAKE_SOURCE_DIR}/build-marlin-hex
+											COMMAND /bin/bash ${CMAKE_SOURCE_DIR}/build-marlin-firmwares.sh
 											WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-											OUTPUT ${CMAKE_SOURCE_DIR}/build-marlin-hex)
+											OUTPUT ${MARLIN_BIN_OUT_DIR})
 
-	install(DIRECTORY ${CMAKE_SOURCE_DIR}/build-marlin-hex/
-	DESTINATION ${CMAKE_INSTALL_DATADIR}/cura/resources/firmware)
+	install( DIRECTORY ${MARLIN_BIN_OUT_DIR}/
+					 DESTINATION ${CURA_FIRMWARES_DIR})
 endif()
 
 

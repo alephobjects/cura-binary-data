@@ -8,6 +8,7 @@ BUILD_BRANCHES='Gladiola'
 GIT_URL='https://code.alephobjects.com/diffusion/MARLIN/marlin.git'
 
 BUILD_DIR='build-marlin'
+OUT_DIR="out"
 MIN_AVR_GCC_VERSION="4.8.1"
 
 
@@ -72,6 +73,7 @@ if [ "${CLEAN}" == "1" -o ! -d ${BUILD_DIR} ] ; then
     mkdir -p ${BUILD_DIR}
     echo "***** Cloning Marlin from git *****"
     git clone ${GIT_URL} ${BUILD_DIR} >& /dev/null
+    mkdir -p "${BUILD_DIR}/${OUT_DIR}"
 fi
 
 # Get list of branches and list of tags
@@ -85,7 +87,7 @@ function build_marlin {
     log_name=$1
 
     make -C Marlin >& build_${log_name}.log
-    mv Marlin/*.hex .
+    mv Marlin/*.hex "${OUT_DIR}"
 }
 
 # Build a tag of marlin
@@ -96,7 +98,7 @@ function build_marlin_tag {
     # We need to delete the branch if it exists, otherwise we
     # can fail to checkout in case there are any local changes
     git branch -D ${tag}_ >& /dev/null || true
-    # We add a '_' to the branch name otherwise the makefile will 
+    # We add a '_' to the branch name otherwise the makefile will
     # fail due to the 'git rev-parse' to get the machine name will
     # return 'heads/${tag}' to differentiate the branch from the tag
     # and that causes the filename to contain a '/' which breaks the compilation
