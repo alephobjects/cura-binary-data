@@ -10,7 +10,7 @@ option(PACK_CURA_I18N "Pack Cura i18n files" ON)
 option(PACK_EXCLUDE_ULTIMAKER "Pack only the firmware not provided by Ultimaker" OFF)
 
 set(MARLIN_BIN_OUT_DIR "${CMAKE_SOURCE_DIR}/build-marlin/out")
-set(CURA_FIRMWARES_DIR "${CMAKE_INSTALL_DATADIR}/resources/firmware")
+set(CURA_FIRMWARES_DIR "${CMAKE_INSTALL_DATADIR}/cura/resources/firmware")
 
 if(BUILD_MARLIN_FIRMWARES)
 	add_custom_target(BuildMarlin ALL
@@ -27,16 +27,16 @@ endif()
 
 if(PACK_EXCLUDE_ULTIMAKER)
 	install(DIRECTORY cura/resources/firmware/
-					DESTINATION ${CMAKE_INSTALL_DATADIR}/resources/firmware
+					DESTINATION ${CURA_FIRMWARES_DIR}
 					FILES_MATCHING PATTERN "*"
 					REGEX ".*Ultimaker.*" EXCLUDE)
 else()
-	install(DIRECTORY cura/resources/firmware DESTINATION ${CMAKE_INSTALL_DATADIR}/resources/firmware)
+	install(DIRECTORY cura/resources/firmware/ DESTINATION ${CURA_FIRMWARES_DIR})
 endif()
 
 
 if(PACK_CURA_I18N)
-	install(DIRECTORY cura/resources/i18n DESTINATION ${CMAKE_INSTALL_DATADIR}/resources/i18n)
+	install(DIRECTORY cura/resources/i18n/ DESTINATION ${CMAKE_INSTALL_DATADIR}/cura/resources/i18n)
 endif()
 
 if(PACK_URANIUM)
