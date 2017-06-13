@@ -7,7 +7,7 @@ include(GNUInstallDirs)
 option(BUILD_MARLIN_FIRMWARES "Build Marlin Firmware" ON)
 option(PACK_URANIUM "Pack Uranium binary files" ON)
 option(PACK_CURA_I18N "Pack Cura i18n files" ON)
-option(PACK_EXCLUDE_ULTIMAKER "Pack only the firmware not provided by Ultimaker" OFF)
+option(PACK_EXCLUDE_ULTIMAKER "Pack only the firmware not provided by Ultimaker" ON)
 
 set(MARLIN_BIN_OUT_DIR "${CMAKE_SOURCE_DIR}/build-marlin/out")
 set(CURA_FIRMWARES_DIR "${CMAKE_INSTALL_DATADIR}/cura/resources/firmware")
