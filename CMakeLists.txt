@@ -7,7 +7,7 @@ include(GNUInstallDirs)
 option(BUILD_MARLIN_FIRMWARES "Build Marlin Firmware" ON)
 option(PACK_URANIUM "Pack Uranium binary files" ON)
 option(PACK_CURA_I18N "Pack Cura i18n files" ON)
-option(PACK_EXCLUDE_ULTIMAKER "Pack only the firmware not provided by Ultimaker" ON)
+set(PACK_FIRMWARE "ultimaker" CACHE STRING "Pack firmware for Lulzbot, Ultimaker or all")
 
 set(MARLIN_BIN_OUT_DIR "${CMAKE_SOURCE_DIR}/build-marlin/out")
 set(CURA_FIRMWARES_DIR "${CMAKE_INSTALL_DATADIR}/cura/resources/firmware")
@@ -25,11 +25,15 @@ if(BUILD_MARLIN_FIRMWARES)
 					 DESTINATION ${CURA_FIRMWARES_DIR})
 endif()
 
-if(PACK_EXCLUDE_ULTIMAKER)
+if(PACK_FIRMWARE STREQUAL "lulzbot")
 	install(DIRECTORY cura/resources/firmware/
 					DESTINATION ${CURA_FIRMWARES_DIR}
 					FILES_MATCHING PATTERN "*"
 					REGEX ".*Ultimaker.*" EXCLUDE)
+elseif(PACK_FIRMWARE STREQUAL "ultimaker")
+	install(DIRECTORY cura/resources/firmware/
+					DESTINATION ${CURA_FIRMWARES_DIR}
+					FILES_MATCHING REGEX ".*Ultimaker.*" )
 else()
 	install(DIRECTORY cura/resources/firmware/ DESTINATION ${CURA_FIRMWARES_DIR})
 endif()
