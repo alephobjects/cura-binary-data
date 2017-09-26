@@ -43,6 +43,11 @@ if(BUILD_MARLIN_FIRMWARES)
 	endif()
 endif()
 
+# Let's clear the old dir
+add_custom_target( ClearOldDirs ALL
+	COMMAND ${CMAKE_COMMAND} -E remove_directory "${CURA_FIRMWARES_DIR}"
+)
+
 if(PACK_FIRMWARE STREQUAL "lulzbot")
 	install(DIRECTORY cura/resources/firmware/
 					DESTINATION ${CURA_FIRMWARES_DIR}
