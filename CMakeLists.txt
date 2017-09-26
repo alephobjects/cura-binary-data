@@ -45,7 +45,8 @@ endif()
 
 # Let's clear the old dir
 add_custom_target( ClearOldDirs ALL
-	COMMAND ${CMAKE_COMMAND} -E remove_directory "${CURA_FIRMWARES_DIR}"
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_INSTALL_PREFIX}/${CURA_FIRMWARES_DIR}
+	COMMENT "Removing Files from ${CMAKE_INSTALL_PREFIX}/${CURA_FIRMWARES_DIR}"
 )
 
 if(PACK_FIRMWARE STREQUAL "lulzbot")
